@@ -17,6 +17,22 @@ const validateLogin = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const createUser = async (req, res) => {
+  const { displayName, email, password, image } = req.body;
+  const { type, message } = await usersService.createUser(displayName, email, password, image);
+  if (type) return res.status(type).json({ message });
+
+  const payload = {
+    displayName,
+    email,
+    image,
+  };
+
+  const token = jwt.sign(payload, JWT_SECRET);
+  return res.status(201).json({ token });
+};
+
 module.exports = {
   validateLogin,
+  createUser,
 };

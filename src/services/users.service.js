@@ -4,11 +4,20 @@ const validateLogin = async (email, password) => {
   const validUser = await User.findOne({
     where: { email, password },
   });
-  if (!validUser) return { type: '400', message: 'Invalid fields' };
+  if (!validUser) return { type: 400, message: 'Invalid fields' };
 
   return { type: null, message: '' };
 };
 
+const createUser = async (displayName, email, password, image) => {
+  const freeEmail = await User.findOne({ where: { email } });
+  if (freeEmail) return { type: 409, message: 'User already registered' };
+
+  const newUser = await User.create({ displayName, email, password, image });
+  if (newUser) return { type: null, message: '' };
+};
+
 module.exports = {
   validateLogin,
+  createUser,
 };
