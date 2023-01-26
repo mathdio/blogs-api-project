@@ -17,7 +17,16 @@ const createUser = async (displayName, email, password, image) => {
   if (newUser) return { type: null, message: '' };
 };
 
+const findAll = async () => {
+  const result = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   validateLogin,
   createUser,
+  findAll,
 };
