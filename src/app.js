@@ -23,6 +23,8 @@ app.get('/user/:id', auth, usersController.findById);
 
 app.post('/categories', auth, newCategoryValidation, categoriesController.createCategory);
 
+app.get('/categories', auth, categoriesController.findAll);
+
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
