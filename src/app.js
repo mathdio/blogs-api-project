@@ -5,8 +5,9 @@ const categoriesController = require('./controllers/categories.controller');
 const blogPostsController = require('./controllers/blogPosts.controller');
 const newUserValidation = require('./middlewares/newUserValidation');
 const newCategoryValidation = require('./middlewares/newCategoryValidation');
-const auth = require('./middlewares/auth');
 const newPostValidation = require('./middlewares/newPostValidation');
+const editPostValidation = require('./middlewares/editPostValidation');
+const auth = require('./middlewares/auth');
 
 // ...
 
@@ -32,6 +33,8 @@ app.post('/post', auth, newPostValidation, blogPostsController.createPost);
 app.get('/post', auth, blogPostsController.findAll);
 
 app.get('/post/:id', auth, blogPostsController.findById);
+
+app.put('/post/:id', auth, editPostValidation, blogPostsController.editPost);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

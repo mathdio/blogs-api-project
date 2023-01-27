@@ -52,8 +52,30 @@ const findById = async (id) => {
   return { type: null, message: result };
 };
 
+const editPost = async (id, userId, title, content) => {
+  const postToEdit = await BlogPost.findOne({ where: { id } });
+  if (!postToEdit) return { type: 404, message: 'Post does not exist' };
+  if (postToEdit.userId !== userId) return { type: 401, message: 'Unauthorized user' };
+
+  await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+
+  const result = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   createPost,
   findAll,
   findById,
+  editPost,
 };

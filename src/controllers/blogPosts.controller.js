@@ -32,8 +32,20 @@ const findById = async (req, res) => {
   return res.status(200).json(message);
 };
 
+const editPost = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+  const { title, content } = req.body;
+
+  const { type, message } = await blogPostsService.editPost(id, userId, title, content);
+  if (type) return res.status(type).json({ message });
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   createPost,
   findAll,
   findById,
+  editPost,
 };
