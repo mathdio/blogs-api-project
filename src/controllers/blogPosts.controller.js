@@ -43,9 +43,20 @@ const editPost = async (req, res) => {
   return res.status(200).json(message);
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  const { type, message } = await blogPostsService.deletePost(id, userId);
+  if (type) return res.status(type).json({ message });
+
+  return res.status(204).end();
+};
+
 module.exports = {
   createPost,
   findAll,
   findById,
   editPost,
+  deletePost,
 };

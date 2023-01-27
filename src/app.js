@@ -36,6 +36,8 @@ app.get('/post/:id', auth, blogPostsController.findById);
 
 app.put('/post/:id', auth, editPostValidation, blogPostsController.editPost);
 
+app.delete('/post/:id', auth, blogPostsController.deletePost);
+
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
