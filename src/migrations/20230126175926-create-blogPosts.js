@@ -13,8 +13,8 @@ module.exports = {
         field: 'user_id',
         references: { model: 'users', key: 'id' },
       },
-      published: { type: Sequelize.DATE, allowNull: false },
-      updated: { type: Sequelize.DATE, allowNull: false },
+      published: { type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW },
+      updated: { type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW },
     });
   },
 

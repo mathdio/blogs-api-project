@@ -11,6 +11,7 @@ const validateLogin = async (req, res) => {
 
   const payload = {
     email: req.body.email,
+    id: message.id,
   };
 
   const token = jwt.sign(payload, JWT_SECRET);
