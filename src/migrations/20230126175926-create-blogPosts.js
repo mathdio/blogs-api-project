@@ -12,6 +12,8 @@ module.exports = {
         foreignKey: true,
         field: 'user_id',
         references: { model: 'users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       published: { type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW },
       updated: { type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW },

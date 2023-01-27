@@ -48,9 +48,18 @@ const findById = async (req, res) => {
   return res.status(200).json(message);
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.user;
+  const { type, message } = await usersService.deleteUser(id);
+  if (type) return res.status(type).json({ message });
+
+  return res.status(204).end();
+};
+
 module.exports = {
   validateLogin,
   createUser,
   findAll,
   findById,
+  deleteUser,
 };

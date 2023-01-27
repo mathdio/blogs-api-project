@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       through: PostCategory,
       foreignKey: 'postId',
       otherKey: 'categoryId',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
 
     models.Category.belongsToMany(models.BlogPost, {
@@ -22,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       through: PostCategory,
       foreignKey: 'categoryId',
       otherKey: 'postId',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
   };
 
