@@ -16,6 +16,14 @@ const createPost = async (req, res) => {
   return res.status(201).json(newPost);
 };
 
+const findAll = async (req, res) => {
+  const { type, message } = await blogPostsService.findAll();
+  if (type) return res.status(type).json({ message });
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   createPost,
+  findAll,
 };
