@@ -53,10 +53,26 @@ const deletePost = async (req, res) => {
   return res.status(204).end();
 };
 
+const findBySearch = async (req, res) => {
+  const searchQuery = req.query.q;
+
+  if (!searchQuery) {
+    const { type, message } = await blogPostsService.findAll();
+    if (type) return res.status(type).json({ message });
+    return res.status(200).json(message);
+  }
+
+  const { type, message } = await blogPostsService.findBySearch(searchQuery);
+  if (type) return res.status(type).json({ message });
+
+  return res.status(200).json(message);
+};
+
 module.exports = {
   createPost,
   findAll,
   findById,
   editPost,
   deletePost,
+  findBySearch,
 };
